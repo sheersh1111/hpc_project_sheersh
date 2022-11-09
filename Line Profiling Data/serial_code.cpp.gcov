@@ -1,0 +1,335 @@
+        -:    0:Source:serial_code.cpp
+        -:    0:Graph:serial_code.gcno
+        -:    0:Data:serial_code.gcda
+        -:    0:Runs:1
+        -:    0:Programs:1
+        -:    1:#include<bits/stdc++.h>
+        -:    2:
+        -:    3:using namespace std;
+        -:    4:
+        -:    5:int grid[100][100];
+        -:    6:
+        1:    7:vector<pair<int,int>>empty_cells;
+call    0 returned 1
+call    1 returned 1
+        1:    8:vector<pair<int,int>>type1_cells;
+call    0 returned 1
+call    1 returned 1
+        1:    9:vector<pair<int,int>>type2_cells;
+call    0 returned 1
+call    1 returned 1
+        1:   10:vector<pair<int,int>>unsatisfied_nodes;
+call    0 returned 1
+call    1 returned 1
+        -:   11:
+        -:   12://Here 0 = empty ,1= of type 1,2=of type 
+        -:   13:
+function _Z8populateii called 1 returned 100% blocks executed 100%
+        1:   14:void populate(int n,int m) 
+        -:   15:{
+        -:   16:    int i,j;
+        1:   17:    srand(time(0));
+call    0 returned 1
+call    1 returned 1
+      101:   18:    for(i=0;i<n;i++)
+branch  0 taken 100 (fallthrough)
+branch  1 taken 1
+        -:   19:    {
+    10100:   20:        for(j=0;j<m;j++)
+branch  0 taken 10000 (fallthrough)
+branch  1 taken 100
+        -:   21:        {
+    10000:   22:            int c=rand()%3;// 0,1,2 
+call    0 returned 10000
+    10000:   23:            grid[i][j]=c;
+        -:   24:        }
+        -:   25:    }
+        -:   26:    
+        1:   27:}
+function _Z8set_typeii called 1001 returned 100% blocks executed 87%
+     1001:   28:void set_type(int n,int m)
+        -:   29:{
+        -:   30:    int i,j;
+   101101:   31:    for(i=0;i<n;i++)
+branch  0 taken 100100 (fallthrough)
+branch  1 taken 1001
+        -:   32:    {
+ 10110100:   33:        for(j=0;j<m;j++)
+branch  0 taken 10010000 (fallthrough)
+branch  1 taken 100100
+        -:   34:        {
+ 10010000:   35:            if(grid[i][j]==0)
+branch  0 taken 3247244 (fallthrough)
+branch  1 taken 6762756
+        -:   36:            {
+  3247244:   37:                empty_cells.push_back(make_pair(i,j));
+call    0 returned 3247244
+branch  1 taken 3247244 (fallthrough)
+branch  2 taken 0 (throw)
+call    3 returned 3247244
+branch  4 taken 3247244 (fallthrough)
+branch  5 taken 0 (throw)
+        -:   38:            }
+  6762756:   39:            else if(grid[i][j]==1)
+branch  0 taken 3333330 (fallthrough)
+branch  1 taken 3429426
+        -:   40:            {
+  3333330:   41:                type1_cells.push_back(make_pair(i,j));
+call    0 returned 3333330
+branch  1 taken 3333330 (fallthrough)
+branch  2 taken 0 (throw)
+call    3 returned 3333330
+branch  4 taken 3333330 (fallthrough)
+branch  5 taken 0 (throw)
+        -:   42:            }
+  3429426:   43:            else if(grid[i][j]==2)
+branch  0 taken 3429426 (fallthrough)
+branch  1 taken 0
+        -:   44:            {
+  3429426:   45:                type2_cells.push_back(make_pair(i,j));
+call    0 returned 3429426
+branch  1 taken 3429426 (fallthrough)
+branch  2 taken 0 (throw)
+call    3 returned 3429426
+branch  4 taken 3429426 (fallthrough)
+branch  5 taken 0 (throw)
+        -:   46:            }
+        -:   47:        }
+        -:   48:    }
+     1001:   49:}
+        -:   50://displaying the grid
+function _Z12display_gridii called 2 returned 100% blocks executed 100%
+        2:   51:void display_grid(int n,int m)
+        -:   52:{
+        -:   53:    int i,j;
+      202:   54:    for(i=0;i<n;i++)
+branch  0 taken 200 (fallthrough)
+branch  1 taken 2
+        -:   55:    {
+    20200:   56:        for(j=0;j<m;j++)
+branch  0 taken 20000 (fallthrough)
+branch  1 taken 200
+        -:   57:        {
+    20000:   58:            cout<<grid[i][j]<<" ";
+call    0 returned 20000
+call    1 returned 20000
+        -:   59:        }
+      200:   60:        cout<<endl;
+call    0 returned 200
+        -:   61:    }
+        2:   62:}
+        -:   63:
+        -:   64://finding unsatisfied nodes
+function _Z11unsatisfiediii called 1 returned 100% blocks executed 98%
+        1:   65:void unsatisfied(int n,int m,int t)
+        -:   66:{
+        -:   67:    int i,j;
+      101:   68:    for(i=0;i<n;i++)
+branch  0 taken 100 (fallthrough)
+branch  1 taken 1
+        -:   69:    {
+    10100:   70:        for(j=0;j<m;j++)
+branch  0 taken 10000 (fallthrough)
+branch  1 taken 100
+        -:   71:        {
+    10000:   72:            if(grid[i][j]==0)
+branch  0 taken 3244 (fallthrough)
+branch  1 taken 6756
+     3244:   73:            continue;
+     6756:   74:            int similar=0;
+     6756:   75:            int type=grid[i][j];
+     6756:   76:            if (i > 0 && grid[i - 1][j] == type)
+branch  0 taken 6686 (fallthrough)
+branch  1 taken 70
+branch  2 taken 2293 (fallthrough)
+branch  3 taken 4393
+     2293:   77:                similar++;
+     6756:   78:            if (j > 0 && grid[i][j - 1] == type)
+branch  0 taken 6684 (fallthrough)
+branch  1 taken 72
+branch  2 taken 2233 (fallthrough)
+branch  3 taken 4451
+     2233:   79:                similar++;
+     6756:   80:            if (i > 0 && j > 0&& grid[i - 1][j - 1] == type)
+branch  0 taken 6686 (fallthrough)
+branch  1 taken 70
+branch  2 taken 6614 (fallthrough)
+branch  3 taken 72
+branch  4 taken 2217 (fallthrough)
+branch  5 taken 4397
+     2217:   81:                similar++;            
+     6756:   82:            if (i < n - 1 && grid[i + 1][j] == type)
+branch  0 taken 6689 (fallthrough)
+branch  1 taken 67
+branch  2 taken 2293 (fallthrough)
+branch  3 taken 4396
+     2293:   83:                similar++;
+     6756:   84:            if (j < m - 1 && grid[i][j + 1] == type)
+branch  0 taken 6679 (fallthrough)
+branch  1 taken 77
+branch  2 taken 2233 (fallthrough)
+branch  3 taken 4446
+     2233:   85:                similar++;
+     6756:   86:            if (i < n- 1 && j < m - 1&& grid[i + 1][j + 1] == type)
+branch  0 taken 6689 (fallthrough)
+branch  1 taken 67
+branch  2 taken 6613 (fallthrough)
+branch  3 taken 76
+branch  4 taken 2217 (fallthrough)
+branch  5 taken 4396
+     2217:   87:                similar++;
+     6756:   88:            if (i < n - 1 && j > 0&& grid[i + 1][j - 1] == type)
+branch  0 taken 6689 (fallthrough)
+branch  1 taken 67
+branch  2 taken 6618 (fallthrough)
+branch  3 taken 71
+branch  4 taken 2251 (fallthrough)
+branch  5 taken 4367
+     2251:   89:                similar++;
+     6756:   90:            if (i > 0 && j < m - 1&& grid[i - 1][j + 1] == type)
+branch  0 taken 6686 (fallthrough)
+branch  1 taken 70
+branch  2 taken 6610 (fallthrough)
+branch  3 taken 76
+branch  4 taken 2251 (fallthrough)
+branch  5 taken 4359
+     2251:   91:                similar++;
+     6756:   92:            if(similar<t)
+branch  0 taken 1349 (fallthrough)
+branch  1 taken 5407
+     1349:   93:            unsatisfied_nodes.push_back(make_pair(i,j));
+call    0 returned 1349
+branch  1 taken 1349 (fallthrough)
+branch  2 taken 0 (throw)
+call    3 returned 1349
+branch  4 taken 1349 (fallthrough)
+branch  5 taken 0 (throw)
+        -:   94:        }
+        -:   95:    }
+        1:   96:}
+        -:   97:
+function _Z21make_a_node_satisfiedv called 1000 returned 100% blocks executed 100%
+     1000:   98:void make_a_node_satisfied()
+        -:   99:{
+        -:  100:    //srand(time(0));
+     1000:  101:    if(unsatisfied_nodes.size()!=0)
+call    0 returned 1000
+branch  1 taken 1000 (fallthrough)
+branch  2 taken 0
+        -:  102:    {
+     1000:  103:        int c1=rand()%(unsatisfied_nodes.size());  
+call    0 returned 1000
+call    1 returned 1000
+     1000:  104:        int c2=rand()%(empty_cells.size());
+call    0 returned 1000
+call    1 returned 1000
+     1000:  105:        grid[empty_cells[c2].first][empty_cells[c2].second]=grid[unsatisfied_nodes[c1].first][unsatisfied_nodes[c1].second];
+call    0 returned 1000
+call    1 returned 1000
+call    2 returned 1000
+call    3 returned 1000
+     1000:  106:        grid[unsatisfied_nodes[c1].first][unsatisfied_nodes[c1].second]=0;
+call    0 returned 1000
+call    1 returned 1000
+        -:  107:    }
+     1000:  108:}
+        -:  109:
+function main called 1 returned 100% blocks executed 100%
+        1:  110:int main()
+        -:  111:{
+        -:  112:    int n,m; // houses as grid of nxm
+        1:  113:    cin>>n>>m;
+call    0 returned 1
+branch  1 taken 1 (fallthrough)
+branch  2 taken 0 (throw)
+call    3 returned 1
+branch  4 taken 1 (fallthrough)
+branch  5 taken 0 (throw)
+        -:  114:    int t; //threshold value
+        1:  115:    cin>>t;
+call    0 returned 1
+branch  1 taken 1 (fallthrough)
+branch  2 taken 0 (throw)
+        1:  116:    populate(n,m);
+call    0 returned 1
+        1:  117:    set_type(n,m);
+call    0 returned 1
+branch  1 taken 1 (fallthrough)
+branch  2 taken 0 (throw)
+        1:  118:    display_grid(n,m);
+call    0 returned 1
+branch  1 taken 1 (fallthrough)
+branch  2 taken 0 (throw)
+        -:  119:    //boundary_cells(n,m);
+        1:  120:    unsatisfied(n,m,t);
+call    0 returned 1
+branch  1 taken 1 (fallthrough)
+branch  2 taken 0 (throw)
+        -:  121:    int i;
+     1001:  122:    for(i=0;i<1000;i++)
+branch  0 taken 1000 (fallthrough)
+branch  1 taken 1
+        -:  123:    {
+     1000:  124:        make_a_node_satisfied();
+call    0 returned 1000
+     1000:  125:        empty_cells.clear();
+call    0 returned 1000
+     1000:  126:        type1_cells.clear();
+call    0 returned 1000
+     1000:  127:        type2_cells.clear();
+call    0 returned 1000
+     1000:  128:        set_type(n,m);
+call    0 returned 1000
+branch  1 taken 1000 (fallthrough)
+branch  2 taken 0 (throw)
+        -:  129:    }
+        1:  130:    cout<<"After Schelling Segregation :"<<endl;
+call    0 returned 1
+branch  1 taken 1 (fallthrough)
+branch  2 taken 0 (throw)
+call    3 returned 1
+branch  4 taken 1 (fallthrough)
+branch  5 taken 0 (throw)
+        1:  131:    display_grid(n,m);
+call    0 returned 1
+branch  1 taken 1 (fallthrough)
+branch  2 taken 0 (throw)
+        1:  132:    return 0;
+function _GLOBAL__sub_I_grid called 1 returned 100% blocks executed 100%
+function _Z41__static_initialization_and_destruction_0ii called 1 returned 100% blocks executed 100%
+        3:  133:}
+call    0 returned 1
+branch  1 taken 1 (fallthrough)
+branch  2 taken 0
+branch  3 taken 1 (fallthrough)
+branch  4 taken 0
+        -:  134:/*
+        -:  135:input: 
+        -:  136:
+        -:  137:2 2 1 2 1 2 2 1 0 1 
+        -:  138:1 2 2 0 0 2 0 2 0 2 
+        -:  139:2 1 2 2 0 1 1 0 0 0 
+        -:  140:2 0 0 1 2 2 0 0 1 1 
+        -:  141:2 0 0 1 0 2 0 1 1 1 
+        -:  142:1 1 0 1 2 0 0 0 0 2 
+        -:  143:1 0 2 1 2 0 0 2 1 2 
+        -:  144:1 0 0 2 1 1 2 2 2 1 
+        -:  145:0 2 2 1 1 1 1 1 2 0 
+        -:  146:1 0 0 1 1 0 2 2 0 0 
+        -:  147:
+        -:  148:*/
+        -:  149:
+        -:  150:/*
+        -:  151:output :
+        -:  152:2 2 0 0 0 2 2 0 0 0 
+        -:  153:0 2 2 1 2 2 2 0 1 0 
+        -:  154:2 0 2 2 2 0 0 0 0 1 
+        -:  155:2 0 2 0 2 2 1 1 1 1 
+        -:  156:0 0 2 1 1 2 0 1 1 1 
+        -:  157:1 1 1 1 2 1 1 2 0 0 
+        -:  158:1 1 0 1 2 1 0 2 0 2 
+        -:  159:0 1 0 2 1 1 2 2 2 0 
+        -:  160:2 0 2 1 1 1 1 0 2 0 
+        -:  161:0 0 0 1 1 1 0 2 2 1
+        -:  162:*/
+        -:  163:

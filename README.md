@@ -1,0 +1,1 @@
+# Parallel-Implementation-of-Schelling-model-of-segregation
